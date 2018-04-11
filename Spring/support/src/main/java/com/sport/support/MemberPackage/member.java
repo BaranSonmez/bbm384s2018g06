@@ -1,5 +1,12 @@
 package com.sport.support.MemberPackage;
 
+/**
+ * This class is entity class of member table.
+ * It contains all fields of table.
+ * Last Update : 11/04/2018
+ */
+
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -100,9 +107,7 @@ public class member {
 		this.branchAuthority = branchAuthority;
 	}
 	
-	member(String username, String mail, int r, int b) {
-		this.referenceNumber = r;
-		this.branchAuthority = b;
+	member(String username, String mail) {
 		this.username = username;
 		this.mail = mail;
 	}
