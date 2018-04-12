@@ -6,7 +6,6 @@ package com.sport.support.MemberPackage;
  * Last Update : 11/04/2018
  */
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,7 +33,7 @@ public class memberController {
 	 * ---REGISTER---
 	 */
 	@GetMapping(path="/add")
-	public @ResponseBody int addNewMember (@RequestParam String name, @RequestParam String surname, @RequestParam String username,
+	public @ResponseBody member addNewMember (@RequestParam String name, @RequestParam String surname, @RequestParam String username,
 			@RequestParam String password, @RequestParam String statue, 
 			@RequestParam String status, @RequestParam String mail,
 			@RequestParam  int referenceNumber, @RequestParam int branchAuthority) {
@@ -44,25 +43,25 @@ public class memberController {
 		if (n == null) {
 			n = new member(name,surname,username,password,statue,status,mail,referenceNumber,branchAuthority);
 			memberRepository.save(n);
-			return n.getId();
+			return n;
 		}
 		
-		else return -2;
+		else return null;
 
 	}
 	
 	/*
-	 * Returns id of the found user with given combination
+	 * Returns id of the found user with given combination.
 	 * Returns -2 when there is not a match.
 	 * ---LOGIN---
 	 */
 	@GetMapping(path="/get")
-	public @ResponseBody int getMember(@RequestParam String username, @RequestParam String password) {
+	public @ResponseBody member getMember(@RequestParam String username, @RequestParam String password) {
 		
 		member n = memberRepository.findDistinctByUsernameAndPassword(username, password);
 		
-	    if (n != null) return n.getId();
-	    else return -2;
+	    if (n != null) return n;
+	    else return null;
 	}
 	
 	/*
@@ -71,7 +70,7 @@ public class memberController {
 	 * Returns -2 when invalid user name password combination is given
 	 */
 	@GetMapping(path="/update/personalinfo")
-	public @ResponseBody int updateMemberPersonalInfo(@RequestParam(required=false) String name, @RequestParam(required=false) String surname,
+	public @ResponseBody member updateMemberPersonalInfo(@RequestParam(required=false) String name, @RequestParam(required=false) String surname,
 			@RequestParam String username, @RequestParam String password,
 			@RequestParam(required=false) String newusername, @RequestParam(required=false) String newpassword,
 			@RequestParam(required=false) String mail) {
@@ -85,25 +84,25 @@ public class memberController {
 			if(name != null) n.setName(name);
 			if(surname != null) n.setSurname(surname);
 			memberRepository.save(n);
-			return n.getId();
+			return n;
 		}
-		else return -2;
+		else return null;
 	}
 	
 	/*
 	 * Returns 0 when it is safely deleted.
-	 * Returns -2 when finding user fails
+	 * Returns -2 when finding user fails.
 	 */
 	@GetMapping(path="/delete")
-	public @ResponseBody int deleteMember(@RequestParam String username, @RequestParam String password) {
+	public @ResponseBody member deleteMember(@RequestParam String username, @RequestParam String password) {
 		
 		member n = memberRepository.findDistinctByUsernameAndPassword(username, password);
 		
 		if (n != null) {
 			memberRepository.delete(n);
-			return 0;
+			return n;
 		}
-	    else return -2;
+	    else return null;
 	}
 	
 	
