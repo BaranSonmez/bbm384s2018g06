@@ -1,5 +1,7 @@
 package com.sport.support.MemberPackage;
 
+import java.util.Date;
+
 /**
  * This class is entity class of member table.
  * It contains all fields of table.
@@ -20,6 +22,9 @@ public class member {
     @GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
+	private Date age;
+	private Date endDate;
+	private Date startDate;
 	private String name;
 	private String surname;
 	private String username;
@@ -90,12 +95,28 @@ public class member {
 	public void setBranchAuthority(int branchAuthority) {
 		this.branchAuthority = branchAuthority;
 	}
-	
-	member (){
-		
+	public Date getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+	public Date getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+	public Date getAge() {
+		return age;
+	}
+	public void setAge(Date age) {
+		this.age = age;
 	}
 	
-	member(String name, String surname, String username, String password, String statue, String status, String mail, int referenceNumber, int branchAuthority){
+	member (){}
+	
+	member(String name, String surname, String username, String password, String statue, String status, String mail, int referenceNumber, int branchAuthority, Date age){
 		this.name = name;
 		this.surname = surname;
 		this.username = username;
@@ -105,12 +126,14 @@ public class member {
 		this.mail = mail;
 		this.referenceNumber = referenceNumber;
 		this.branchAuthority = branchAuthority;
+		this.setAge(age);
 	}
 	
-	member(String username, String mail) {
+	member(String username, String password) {
 		this.username = username;
-		this.mail = mail;
+		this.password = password;
 	}
+	
 	
 }
 
